@@ -35,18 +35,19 @@ void Graphics::flip() {
 }
 
 void Graphics::blit(std::string texture, SDL_Rect* source, SDL_Rect* dest) {
+  load_image(texture);
   SDL_RenderCopy(renderer, textures[texture], source, dest);
 }
 
 void Graphics::load_image(std::string file, bool transparency) {
   const std::string path("content/" + file + ".bmp");
 
-  if (textures.count(path) == 0) {
+  if (textures.count(file) == 0) {
     SDL_Surface* surface = SDL_LoadBMP(path.c_str());
     if (transparency) {
       const Uint32 black = SDL_MapRGB(surface->format, 0, 0, 0);
       SDL_SetColorKey(surface, SDL_TRUE, black);
     }
-    textures[path] = SDL_CreateTextureFromSurface(renderer, surface);
+    textures[file] = SDL_CreateTextureFromSurface(renderer, surface);
   }
 }
