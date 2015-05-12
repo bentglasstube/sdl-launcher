@@ -1,8 +1,8 @@
 #include "graphics.h"
 
 namespace {
-  const unsigned int width = 800;
-  const unsigned int height = 600;
+  const unsigned int width = 640;
+  const unsigned int height = 360;
 }
 
 Graphics::Graphics() {
