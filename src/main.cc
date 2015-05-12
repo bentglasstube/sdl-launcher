@@ -2,12 +2,14 @@
 
 #include "input.h"
 #include "graphics.h"
+#include "text.h"
 
 int main() {
   SDL_Init(SDL_INIT_EVERYTHING);
 
   Graphics graphics;
   Input input;
+  Text text(graphics, "font");
 
   SDL_Event event;
   bool running = true;
@@ -43,7 +45,15 @@ int main() {
     // updates
 
     graphics.clear();
-    // draw
+
+    text.draw(graphics, "SDL Launcher", 320, 32, Text::CENTER);
+
+    text.draw(graphics, "Castlevania", 200, 128);
+    text.draw(graphics, "Castlevania II: Simon's Quest", 200, 144);
+    text.draw(graphics, "Dr. Mario", 200, 160);
+    text.draw(graphics, "Super Mario Bros.", 200, 176);
+    text.draw(graphics, "The Legend of Zelda", 200, 192);
+
     graphics.flip();
   }
 }
