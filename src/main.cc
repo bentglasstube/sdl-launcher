@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
 
+#include <sstream>
+
 #include "input.h"
 #include "graphics.h"
 #include "menu_list.h"
@@ -18,27 +20,28 @@ int main() {
   std::vector<std::string> games;
   games.reserve(32);
 
-  games.push_back("Castlevania");
-  games.push_back("Castlevania II: Simon's Quest");
-  games.push_back("Castlevania III: Dracula's Curse");
-  games.push_back("Dr. Mario");
-  games.push_back("Duck Tales");
-  games.push_back("Final Fantasy");
-  games.push_back("Guardian Legend, The");
-  games.push_back("Legend of Zelda, The");
-  games.push_back("Mega Man");
-  games.push_back("Mega Man 2");
-  games.push_back("Mega Man 3");
-  games.push_back("Mega Man 4");
-  games.push_back("Mega Man 5");
-  games.push_back("Mega Man 6");
-  games.push_back("Metroid");
-  games.push_back("Shadowgate");
-  games.push_back("Super Mario Bros.");
-  games.push_back("Super Mario Bros. 2");
-  games.push_back("Super Mario Bros. 3");
-  games.push_back("Where's Waldo");
-  games.push_back("Zelda II - The Adventure of Link");
+
+  games.push_back("Castlevania (USA) (Rev A)");
+  games.push_back("Castlevania II - Simon's Quest (USA)");
+  games.push_back("Castlevania III - Dracula's Curse (USA)");
+  games.push_back("Dr. Mario (Japan, USA)");
+  games.push_back("Duck Tales (USA)");
+  games.push_back("Final Fantasy (USA)");
+  games.push_back("Guardian Legend, The (USA)");
+  games.push_back("Legend of Zelda, The (USA) (Rev A)");
+  games.push_back("Mega Man (USA)");
+  games.push_back("Mega Man 2 (USA)");
+  games.push_back("Mega Man 3 (USA)");
+  games.push_back("Mega Man 4 (USA) (Rev A)");
+  games.push_back("Mega Man 5 (USA)");
+  games.push_back("Mega Man 6 (USA)");
+  games.push_back("Metroid (USA)");
+  games.push_back("Shadowgate (USA)");
+  games.push_back("Super Mario Bros. (Japan, USA)");
+  games.push_back("Super Mario Bros. 2 (USA) (Rev A)");
+  games.push_back("Super Mario Bros. 3 (USA) (Rev A)");
+  games.push_back("Where's Waldo (USA)");
+  games.push_back("Zelda II - The Adventure of Link (USA)");
 
   MenuList menu(games, 288, 280);
 
@@ -53,10 +56,8 @@ int main() {
     }
 
     if (input.key_pressed(Input::UP)) {
-      fprintf(stderr, "Pressed up\n");
       menu.up();
     } else if (input.key_pressed(Input::DOWN)) {
-      fprintf(stderr, "Pressed down\n");
       menu.down();
     }
 
@@ -67,7 +68,12 @@ int main() {
     }
 
     if (input.key_pressed(Input::ACCEPT)) {
-      fprintf(stderr, "Pressed accept\n");
+      std::ostringstream command;
+      command << "retroarch -f -c ~/.config/retroarch/retroarch.cfg \"/home/alan/Downloads/Roms/NES/";
+      command << menu.selected_value();
+      command << ".nes\"";
+
+      system(command.str().c_str());
     } else if (input.key_pressed(Input::CANCEL)) {
       fprintf(stderr, "Pressed cancel\n");
     }
